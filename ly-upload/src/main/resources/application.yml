@@ -1,0 +1,35 @@
+server:
+  port: 8082
+  tomcat: #传到虚拟机之前 缓存图片的地方
+    basedir: C:/Users/TEMP/AppData/Local/tomcat
+spring:
+  application:
+    name: upload-service
+  servlet:
+    multipart:
+      max-file-size: 5MB # 限制文件上传的大小
+# Eureka
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:10086/eureka
+  instance:
+    prefer-ip-address: true
+    ip-address: 127.0.0.1
+    instance-id: ${spring.application.name}:${server.port}
+fdfs:
+  so-timeout: 2500
+  connect-timeout: 600
+  thumb-image: # 缩略图
+    width: 60
+    height: 60
+  tracker-list: # tracker地址
+    - 192.168.163.128:22122
+ly:
+  upload:
+    baseUrl: http://image.leyou.com/
+    ALLOW_TYPES:
+      - image/jpeg
+      - image/jpg
+      - image/png
+      - image/bnp

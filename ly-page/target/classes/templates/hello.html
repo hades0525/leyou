@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>hello</title>
+</head>
+<body>
+   <!-- <span th:text="${#dates.format(#dates.createNow(),'yyyy-MM-dd')}"></span>
+    <br>
+    <span th:utext="'<font color=\'red\'>hello</font>'"></span><br>
+    <span th:text="'<font color=\'red\'>hello</font>'"></span><br>-->
+
+    <ul>
+        <li th:each = "user  :  ${users} ">
+            <span th:text="${user.name}"></span>
+            <span th:text="${user.age}"></span>
+        </li>
+    </ul>
+
+   <tr th:each="user : ${users}">
+       <td th:text="${user.name}">Onions</td>
+       <td th:text="${user.age}">2.41</td>
+   </tr>
+
+<script th:inline="javascript">
+    const users = /*[[ ${users} ]]*/[];
+    const user = users[0];
+
+    for(let i in users){
+        console.log(users[i]);
+    }
+
+</script>
+</body>
+</html>

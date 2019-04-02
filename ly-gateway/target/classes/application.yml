@@ -1,0 +1,49 @@
+server:
+  port: 10010
+spring:
+  application:
+    name: api-gateway
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:10086/eureka
+zuul:
+  prefix: /api
+  routes:
+    item-service: /item/**
+    search-service: /search/**
+    user-service: /user/**
+    auth-service: /auth/**
+    cart-service: /cart/**
+    order-service: /order/**
+#controller的路径为upload/image,网关的路径前缀为upload，访问地址就会变为/upload/upload/image,所以设置网关忽略前缀
+    upload-service:
+      path: /upload/**
+      serviceId: upload-service
+      strip-prefix: false
+  add-host-header: true #携带请求本身的head信息
+  sensitive-headers:  #敏感头过滤
+ribbon:
+  ConnectTimeout: 1000 # 连接超时时间(ms)
+  ReadTimeout: 3500 # 通信超时时间(ms)
+  MaxAutoRetriesNextServer: 0 # 同一服务不同实例的重试次数
+  MaxAutoRetries: 0 # 同一实例的重试次数
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMillisecond: 5000 # 熔断超时时长：5000ms
+ly:
+  jwt:
+    pubKeyPath: D:/MY_IDEA/rsa/rsa.pub # 公钥地址
+    cookieName: LY_TOKEN # cookie的名称
+  filter:
+    allowPaths:
+      - /api/auth
+      - /api/search
+      - /api/user/register
+      - /api/user/check
+      - /api/user/code
+      - /api/item
